@@ -28,3 +28,28 @@ DS 数据段寄存器
 FS GS 没有名称
 
 mov表示复制粘贴(我的理解)，mov AX [SI]表示从内存中取出SI位置的数据复制到AX中。
+
+INT 表示调用BIOS的函数
+
+JC "jump if carry" 如果进位符号为1，就跳转。
+
+nask代码              NASM代码
+
+
+JMP entry       ->   JMP SHORT entry
+
+RESB <填充字节数>         ->   TIMES <填充字节数> DB <填充数据>
+
+RESB 0x7dfe-$   ->   TIMES 0x1fe-($-$$) DB 0
+
+ALIGNB 16       ->   ALIGN 16, DB 0
+
+
+vim可以用%!xxd 和%!xxd -r 来查看二进制
+
+
+说说为什么会有0x8000这一说：是有些操作系统会把操作系统的代码放到0x8000，这是因为BIOS读完启动扇区以后，会跳转到0x7C00启动，占用0x7C00-0x7DFF这一段（512字节），而一般bootloader还需要一个栈空间或者读磁盘的交换空间，一般是放到0x7E00-0x7FFF这512字节里，所以有些操作系统的镜像起点是0x8000。
+
+要把Makefile中的copy改成cp
+
+暂时留坑，并不知道edimg的操作原理，这点很烦
